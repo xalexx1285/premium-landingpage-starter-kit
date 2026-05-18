@@ -1,7 +1,7 @@
 "use client";
 
 import { motionTokens } from "@/lib/motion/tokens";
-import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from "react";
+import { type CSSProperties, type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "./useReducedMotion";
 
 type FadeUpProps = {
@@ -15,6 +15,10 @@ export function FadeUp({ children, as: Tag = "div", delay = 0, className = "" }:
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
   const reducedMotion = useReducedMotion();
+
+  const setRef = useCallback((node: HTMLElement | null) => {
+    ref.current = node;
+  }, []);
 
   useEffect(() => {
     const node = ref.current;
@@ -45,7 +49,7 @@ export function FadeUp({ children, as: Tag = "div", delay = 0, className = "" }:
   } as CSSProperties;
 
   return (
-    <Tag ref={ref as never} style={style} className={`motion-fade-up ${visible ? "is-visible" : ""} ${className}`}>
+    <Tag ref={setRef} style={style} className={`motion-fade-up ${visible ? "is-visible" : ""} ${className}`}>
       {children}
     </Tag>
   );
