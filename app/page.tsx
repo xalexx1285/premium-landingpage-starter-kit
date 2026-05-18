@@ -13,8 +13,8 @@ export default function Page() {
       <Hero content={site.hero} proof={site.proof} />
       <Story content={site.story} />
       <Pricing content={site.pricing} />
-      <FAQ items={site.faq} />
-      <FinalCTA content={site.finalCta} />
+      <FAQ header={site.faq.header} items={site.faq.items} />
+      <FinalCTA content={site.finalCta} qaChecklist={site.qaChecklist} />
     </main>
   );
 }

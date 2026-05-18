@@ -69,28 +69,35 @@ export const site = {
       },
     ],
   },
-  faq: [
-    {
-      question: "Ist das Template schon produktionsbereit?",
-      answer:
-        "Version 1.0 ist ein sauberer Starter: strukturierte Komponenten, Tokens, reduced-motion support und QA-Checkliste. Für ein reales Projekt werden Inhalte, Proof, Branding und finale QA angepasst.",
+  faq: {
+    header: {
+      eyebrow: "FAQ + QA",
+      headline: "Reusable does not mean generic.",
+      body: "The FAQ is where uncertainty gets removed. The QA checklist is where premium quality becomes repeatable.",
     },
-    {
-      question: "Warum keine schwere GSAP-Integration in v1.0?",
-      answer:
-        "Das Starter-Kit legt zuerst robuste Motion-Tokens und progressive CSS/IntersectionObserver-Reveals an. GSAP/Lenis kann gezielt ergänzt werden, sobald ein echtes Scroll-Story-Konzept steht.",
-    },
-    {
-      question: "Wie bleibt das Design wiederverwendbar?",
-      answer:
-        "Content liegt zentral in lib/content/site.ts, Motion-Werte in lib/motion/tokens.ts, Premium-Surfaces in components/surface und Section-Logik in components/sections.",
-    },
-    {
-      question: "Welche QA ist vor Auslieferung Pflicht?",
-      answer:
-        "Desktop/mobile responsive checks, reduced-motion, console/build/lint, CTA-Klarheit, echte Proof-Elemente, Accessibility-Kontrast und Performance-Budget.",
-    },
-  ],
+    items: [
+      {
+        question: "Ist das Template schon produktionsbereit?",
+        answer:
+          "Version 1.0 ist ein sauberer Starter: strukturierte Komponenten, Tokens, reduced-motion support und QA-Checkliste. Für ein reales Projekt werden Inhalte, Proof, Branding und finale QA angepasst.",
+      },
+      {
+        question: "Warum keine schwere GSAP-Integration in v1.0?",
+        answer:
+          "Das Starter-Kit legt zuerst robuste Motion-Tokens und progressive CSS/IntersectionObserver-Reveals an. GSAP/Lenis kann gezielt ergänzt werden, sobald ein echtes Scroll-Story-Konzept steht.",
+      },
+      {
+        question: "Wie bleibt das Design wiederverwendbar?",
+        answer:
+          "Content liegt zentral in lib/content/site.ts, Motion-Werte in lib/motion/tokens.ts, Premium-Surfaces in components/surface und Section-Logik in components/sections.",
+      },
+      {
+        question: "Welche QA ist vor Auslieferung Pflicht?",
+        answer:
+          "Desktop/mobile responsive checks, reduced-motion, console/build/lint, CTA-Klarheit, echte Proof-Elemente, Accessibility-Kontrast und Performance-Budget.",
+      },
+    ],
+  },
   finalCta: {
     eyebrow: "Final CTA",
     headline: "Use this as the foundation for premium page builds.",

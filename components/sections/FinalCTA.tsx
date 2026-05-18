@@ -1,6 +1,5 @@
 import { FadeUp } from "@/components/motion/FadeUp";
 import { PremiumCard } from "@/components/surface/PremiumCard";
-import { site } from "@/lib/content/site";
 
 type FinalCTAContent = {
   eyebrow: string;
@@ -10,7 +9,12 @@ type FinalCTAContent = {
   secondaryCta: { label: string; href: string };
 };
 
-export function FinalCTA({ content }: { content: FinalCTAContent }) {
+type FinalCTAProps = {
+  content: FinalCTAContent;
+  qaChecklist: readonly string[];
+};
+
+export function FinalCTA({ content, qaChecklist }: FinalCTAProps) {
   return (
     <section id="final-cta" className="section final-section">
       <div className="container">
@@ -25,7 +29,7 @@ export function FinalCTA({ content }: { content: FinalCTAContent }) {
             </div>
           </FadeUp>
           <div className="qa-checklist" aria-label="QA checklist">
-            {site.qaChecklist.map((item, index) => (
+            {qaChecklist.map((item, index) => (
               <FadeUp delay={index * 70} key={item}>
                 <div className="qa-item"><span aria-hidden="true">✓</span>{item}</div>
               </FadeUp>

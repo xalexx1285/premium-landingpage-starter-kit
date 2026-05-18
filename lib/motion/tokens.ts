@@ -18,13 +18,17 @@ export const motionTokens = {
   },
   easing: {
     cssPremium: "cubic-bezier(0.16, 1, 0.3, 1)",
-    gsapPrimary: "power3.out",
-    gsapEmphasis: "power4.out",
-    gsapCinematic: "expo.out",
   },
   scroll: {
     scrub: 1.1,
   },
 } as const;
+
+// Ready to use when gsap is installed.
+// const gsapEasingTokens = {
+//   gsapPrimary: "power3.out",
+//   gsapEmphasis: "power4.out",
+//   gsapCinematic: "expo.out",
+// } as const;
 
 export type MotionTokens = typeof motionTokens;
