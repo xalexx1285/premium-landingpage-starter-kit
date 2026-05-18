@@ -34,6 +34,18 @@ export const motionTokens = {
   },
   scrubStrength: 1,
   staggerInterval: 0.12,
+  signature: {
+    ease: "power3.out",
+    magnetic: {
+      strength: 0.18,
+      duration: 0.42,
+      resetDuration: 0.62,
+    },
+    aura: {
+      follow: { duration: 0.62, ease: "power3.out" },
+      fade: { duration: 0.28, ease: "power2.out" },
+    },
+  },
 } as const;
 
 export type MotionTokens = typeof motionTokens;

@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.2.0 — 2026-05-18
+
+### Added
+- Added `components/motion/SignatureInteraction.tsx` as a client-only signature interaction layer.
+- Added desktop/fine-pointer global pointer aura with GSAP `quickTo` smoothing.
+- Added magnetic CTA behavior for `.premium-button` elements using CSS custom properties and GSAP tweening.
+- Added pointer-reactive spotlight variables for premium cards, story chapters, proof chips, and QA items.
+- Added signature interaction tokens in `lib/motion/tokens.ts` for aura follow/fade and magnetic strength/duration.
+
+### Changed
+- Mounted the signature interaction layer in `app/page.tsx` without changing section APIs or content shape.
+- Extended component styles with spotlight gradients and reduced-motion-safe magnetic transforms.
+
+### Verification
+- `npm run lint` passed.
+- `npm run build` passed.
+- Browser smoke test passed at `http://localhost:3000` with no console or JavaScript errors.
+
 ## 1.1.0 — 2026-05-18
 
 ### Added
