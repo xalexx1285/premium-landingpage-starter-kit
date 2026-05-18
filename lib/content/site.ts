@@ -1,4 +1,7 @@
+import type { ThemeId } from "@/lib/themes";
+
 export const site = {
+  theme: "industrial-ai" satisfies ThemeId,
   meta: {
     title: "Premium Landing Page Starter Kit",
     description:

@@ -2,12 +2,9 @@
 html { scroll-behavior: smooth; background: var(--bg); }
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body-theme);
   color: var(--ink);
-  background:
-    radial-gradient(circle at 18% 0%, rgba(110, 183, 255, 0.22), transparent 34rem),
-    radial-gradient(circle at 84% 18%, rgba(214, 168, 95, 0.16), transparent 30rem),
-    linear-gradient(140deg, #050608, #09111d 45%, #06070a);
+  background: var(--surface-page);
   overflow-x: hidden;
 }
 body::before {
@@ -15,9 +12,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-image: var(--surface-grid);
   background-size: 64px 64px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.15));
 }
@@ -27,10 +22,10 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background: radial-gradient(circle at 50% 30%, transparent, rgba(0, 0, 0, 0.72));
+  background: var(--surface-vignette);
 }
 
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
-::selection { background: rgba(214, 168, 95, 0.42); }
+::selection { background: var(--selection); }
 

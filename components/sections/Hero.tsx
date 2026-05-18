@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { MaskedReveal } from "@/components/motion/MaskedReveal";
 import { useGSAP } from "@/components/motion/useGSAP";
 import { motionTokens } from "@/lib/motion/tokens";
+import { useTheme } from "@/lib/themes/ThemeProvider";
 
 type HeroContent = {
   eyebrow: string;
@@ -17,6 +18,7 @@ type HeroContent = {
 export function Hero({ content, proof }: { content: HeroContent; proof: readonly string[] }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const visualRef = useRef<HTMLElement | null>(null);
+  const { theme } = useTheme();
 
   useGSAP(sectionRef, ({ element, gsap, ScrollTrigger }) => {
     const eyebrow = element.querySelector(".hero-eyebrow");
@@ -31,7 +33,7 @@ export function Hero({ content, proof }: { content: HeroContent; proof: readonly
     gsap.set(revealTargets, { autoAlpha: 0, y: 28, filter: "blur(8px)" });
     gsap.set(visual, { y: 18, rotateX: 2, transformPerspective: 900 });
 
-    const timeline = gsap.timeline({ defaults: { ease: motionTokens.gsapEase.hero } });
+    const timeline = gsap.timeline({ defaults: { ease: theme.motion.easeHero } });
     timeline
       .to(eyebrow, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: motionTokens.gsapDuration.fast })
       .to(headlineWords, {
@@ -52,7 +54,7 @@ export function Hero({ content, proof }: { content: HeroContent; proof: readonly
 
       const parallax = gsap.to(visual, {
         y: 40,
-        ease: motionTokens.gsapEase.scroll,
+        ease: theme.motion.easeScroll,
         scrollTrigger: {
           trigger: element,
           start: "top top",
@@ -71,7 +73,7 @@ export function Hero({ content, proof }: { content: HeroContent; proof: readonly
         if (trigger.trigger === element || trigger.trigger === visual) trigger.kill();
       });
     };
-  }, []);
+  }, [theme.motion.easeHero, theme.motion.easeScroll]);
 
   return (
     <section id="top" className="section hero-section" ref={sectionRef}>

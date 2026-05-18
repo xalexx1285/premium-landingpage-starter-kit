@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Inter } from "next/font/google";
+import type { CSSProperties } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { site } from "@/lib/content/site";
+import { getThemeById, themeToCssProperties } from "@/lib/themes";
+import { ThemeProvider } from "@/lib/themes/ThemeProvider";
 import "./globals.css";
+
+const bodyFont = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const displayFont = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display", display: "swap" });
+const activeTheme = getThemeById(site.theme);
+const activeThemeStyle = themeToCssProperties(activeTheme) as CSSProperties;
 
 export const metadata: Metadata = {
   title: site.meta.title,
@@ -18,10 +27,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de">
-      <body>
-        <Navbar content={site.navbar} />
-        {children}
+    <html
+      lang="de"
+      data-theme={activeTheme.id}
+      data-signature-variant={activeTheme.motion.signatureVariant}
+      style={activeThemeStyle}
+      suppressHydrationWarning
+    >
+      <body className={`${bodyFont.variable} ${displayFont.variable}`}>
+        <ThemeProvider initialThemeId={activeTheme.id}>
+          <Navbar content={site.navbar} />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

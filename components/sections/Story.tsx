@@ -5,6 +5,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { useGSAP } from "@/components/motion/useGSAP";
 import { PremiumCard } from "@/components/surface/PremiumCard";
 import { motionTokens } from "@/lib/motion/tokens";
+import { useTheme } from "@/lib/themes/ThemeProvider";
 
 type StoryContent = {
   eyebrow: string;
@@ -15,6 +16,7 @@ type StoryContent = {
 
 export function Story({ content }: { content: StoryContent }) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const { theme } = useTheme();
 
   useGSAP(sectionRef, ({ element, gsap }) => {
     const chapters = gsap.utils.toArray<HTMLElement>(element.querySelectorAll(".story-chapter"));
@@ -45,7 +47,7 @@ export function Story({ content }: { content: StoryContent }) {
 
       const scrub = gsap.fromTo(stripes, { autoAlpha: 0.18 }, {
         autoAlpha: 0.56,
-        ease: motionTokens.gsapEase.scroll,
+        ease: theme.motion.easeScroll,
         scrollTrigger: {
           trigger: element,
           start: "top 70%",
@@ -58,7 +60,7 @@ export function Story({ content }: { content: StoryContent }) {
     });
 
     return () => mm.revert();
-  }, []);
+  }, [theme.motion.easeScroll]);
 
   return (
     <section id="story" className="section story-section" ref={sectionRef}>

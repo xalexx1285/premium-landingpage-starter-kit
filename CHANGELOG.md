@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.3.0 — 2026-05-18
+
+### Added
+- Added a full theme engine with `ThemeConfig`, `themes`, `defaultTheme`, and CSS property serialization in `lib/themes/index.ts`.
+- Added four complete visual identities: `industrial-ai`, `minimal-luxury`, `cyber-saas`, and `clean-startup`.
+- Added `ThemeProvider` and `useTheme()` with SSR-safe initial theme application plus optional localStorage preview overrides.
+- Added global theme selection via `site.theme` in `lib/content/site.ts`.
+- Loaded stable body/display font variables through `next/font` to avoid layout-shifting font swaps.
+
+### Changed
+- Moved theme-relevant colors, surfaces, glows, shadows, typography, radius, and signature interaction values into CSS Custom Properties.
+- Updated `app/layout.tsx` to apply the active theme as inline `<html>` styles before hydration to avoid FOUC.
+- Updated `SignatureInteraction` to read its variant from the active theme while keeping a prop override for backward compatibility.
+- Updated Hero and Story GSAP easing to read theme motion values from `useTheme()`.
+
+### Verification
+- All four themes were build-smoke-tested by switching `site.theme` to each theme id.
+- Browser smoke-tested all four themes via localStorage preview override; no console or JavaScript errors.
+- WCAG AA text/background contrast verified for all four themes: industrial-ai 17.47:1, minimal-luxury 16.86:1, cyber-saas 19.39:1, clean-startup 15.77:1.
+- `npm run build` passed.
+- `npm run lint` passed.
+
 ## 1.2.0 — 2026-05-18
 
 ### Added

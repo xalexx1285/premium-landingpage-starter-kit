@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap, initGSAP } from "@/lib/motion/gsap";
 import { motionTokens } from "@/lib/motion/tokens";
+import { useTheme } from "@/lib/themes/ThemeProvider";
 import { useReducedMotion } from "./useReducedMotion";
 
 const SURFACE_SELECTOR = ".premium-card, .chapter, .qa-item, .proof-row li";
@@ -21,9 +22,11 @@ function setLocalPointerVars(element: HTMLElement, clientX: number, clientY: num
   element.style.setProperty("--signature-y", `${y.toFixed(2)}%`);
 }
 
-export function SignatureInteraction() {
+export function SignatureInteraction({ variant }: { variant?: string } = {}) {
   const auraRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const activeVariant = variant ?? theme.motion.signatureVariant;
 
   useEffect(() => {
     if (reducedMotion || !supportsFinePointer()) return;
@@ -104,5 +107,5 @@ export function SignatureInteraction() {
 
   if (reducedMotion) return null;
 
-  return <div ref={auraRef} className="signature-aura" aria-hidden="true" />;
+  return <div ref={auraRef} className={`signature-aura signature-aura--${activeVariant}`} aria-hidden="true" />;
 }
