@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.6.0 — 2026-05-18
+
+### Added
+- Added monorepo-style CLI package `packages/create-premium-site`.
+- Added `create-premium-site` entry point with interactive project generation flow.
+- Added prompt layer for project name, brand, industry, theme, sections, CTA type, waitlist mode, and optional AI generation.
+- Added scaffold logic that copies the starter kit to `../<project-name>` while ignoring `node_modules`, `.next`, `.git`, `out`, and generated files.
+- Added configuration logic for `package.json`, `lib/content/site.ts`, and `app/page.tsx` in generated projects.
+- Added optional AI generation bridge that calls `generateSiteConfig()` when `ANTHROPIC_API_KEY` is available and skips clearly otherwise.
+- Added colored CLI logging, install/build execution, overwrite protection, and final generation summary.
+- Added root `npm run create` script.
+
+### Changed
+- Updated README with CLI Generator usage and generated-project behavior.
+- Added CLI dependencies for prompts, terminal colors, spinners, and filesystem copying.
+
+### Verification
+- `npm run create` generated `../test-site` with TestBrand/B2B SaaS/clean-startup/demo/no-AI test data.
+- `npm run build` passed in generated `../test-site`.
+- `npm run lint` passed in the starter kit.
+
 ## 1.5.0 — 2026-05-18
 
 ### Added

@@ -97,6 +97,36 @@ The same generator is available server-side through `POST /api/generate` with JS
 
 The API route reads `ANTHROPIC_API_KEY` only on the server and never exposes it to client code.
 
+## CLI Generator
+
+Der Starter enthält ein lokales CLI-Paket `create-premium-site`, das aus dem Starter Kit ein neues, vorkonfiguriertes Landingpage-Projekt erzeugt.
+
+Start:
+
+```bash
+npm run create
+```
+
+Der Generator fragt interaktiv nach:
+
+- Projektname und Markenname
+- Branche/Nische
+- Theme: `industrial-ai`, `minimal-luxury`, `cyber-saas`, `clean-startup`
+- aktiven Sections: Hero, Story, Pricing, FAQ, Final CTA
+- CTA-Art: Waitlist, Kaufen, Demo oder Kontakt
+- optionalem Waitlist-Modus
+- optionaler AI-Content-Generierung über den bestehenden `generateSiteConfig()` Layer
+
+Ergebnis:
+
+- Das Starter Kit wird nach `../<projektname>/` kopiert.
+- `package.json`, `lib/content/site.ts` und `app/page.tsx` werden anhand der Antworten angepasst.
+- `node_modules`, `.next`, `.git`, `out` und generierte Content-Dateien werden nicht kopiert.
+- Im neuen Projekt werden `npm install` und `npm run build` ausgeführt.
+- Falls AI-Generierung gewählt wurde, aber kein `ANTHROPIC_API_KEY` gesetzt ist, wird dieser Schritt klar gemeldet übersprungen.
+
+Bei deaktiviertem Pricing oder FAQ entfernt das CLI die jeweilige Section aus `app/page.tsx`. Das neue Projekt bleibt auch bei Install-/Build-Fehlern bestehen und kann manuell weiterbearbeitet werden.
+
 ## Design principles
 
 - One audience, one offer, one primary CTA.
