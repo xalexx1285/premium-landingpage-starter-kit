@@ -34,5 +34,8 @@ pnpm-debug.log*
 .netlify
 out/
 
+# generated content
+lib/content/site.generated.ts
+
 # typescript
 *.tsbuildinfo

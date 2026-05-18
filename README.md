@@ -64,6 +64,39 @@ Deployment automation is included for production handoff:
 
 Read the full deployment guide in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
+## AI Content Generation
+
+The starter includes a Claude-powered generation layer that can turn a business idea into a complete `SiteConfig` object.
+
+1. Copy the env template and add your server-side Anthropic key:
+
+```bash
+cp .env.example .env.local
+# edit .env.local and set ANTHROPIC_API_KEY=sk-ant-...
+```
+
+2. Generate content from a business idea:
+
+```bash
+npm run generate -- "Ein B2B SaaS-Tool für automatisierte Rechnungsstellung für Freelancer"
+```
+
+3. The CLI writes:
+
+```txt
+lib/content/site.generated.ts
+```
+
+Generated content is intentionally ignored by git. Review it, then manually copy the parts you want into `lib/content/site.ts` or wire your own import strategy.
+
+The same generator is available server-side through `POST /api/generate` with JSON body:
+
+```json
+{ "businessIdea": "..." }
+```
+
+The API route reads `ANTHROPIC_API_KEY` only on the server and never exposes it to client code.
+
 ## Design principles
 
 - One audience, one offer, one primary CTA.

@@ -1,12 +1,14 @@
+import type { SiteConfig } from "./site.schema";
 import type { ThemeId } from "@/lib/themes";
 
-export const site = {
+export const site: SiteConfig = {
   theme: "industrial-ai" satisfies ThemeId,
   meta: {
     title: "Premium Landing Page Starter Kit",
     description:
       "A reusable premium Next.js landing page template with motion tokens, surface system, QA checklist, and conversion-ready sections.",
     ogImage: "https://premium-landingpage-starter-kit.vercel.app/og-image.jpg",
+    ogImageAlt: "Premium landing page starter kit preview with cinematic sections and premium surfaces",
   },
   navbar: {
     logo: "Premium Kit",
@@ -127,4 +129,4 @@ export const site = {
     "Mobile spacing, typography, CTAs, and pricing cards are manually checked.",
     "npm run build and npm run lint pass before delivery.",
   ],
-} as const;
+};

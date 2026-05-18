@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.5.0 — 2026-05-18
+
+### Added
+- Added `SiteConfig` schema/type definitions in `lib/content/site.schema.ts` with documented fields for generated landing page content.
+- Added Claude-powered generation core in `lib/ai/generate-site-config.ts` using `claude-sonnet-4-20250514` and strict JSON validation.
+- Added `POST /api/generate` for server-side landing page generation with `ANTHROPIC_API_KEY` protection.
+- Added `scripts/generate-site.ts` and `npm run generate` to write generated content to `lib/content/site.generated.ts`.
+- Added `@anthropic-ai/sdk` and `tsx` dependencies required by the generation layer.
+
+### Changed
+- Annotated `lib/content/site.ts` with `SiteConfig` and added `meta.ogImageAlt`.
+- Updated `.env.example`, `.gitignore`, and README for AI generation setup and ignored generated content.
+
+### Verification
+- `npm run generate -- "Ein B2B SaaS-Tool für automatisierte Rechnungsstellung für Freelancer"` correctly stops with a clear missing `ANTHROPIC_API_KEY` error in this environment.
+- `npm run build` passed.
+- `npm run lint` passed.
+
 ## 1.4.0 — 2026-05-18
 
 ### Added
