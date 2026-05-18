@@ -1,5 +1,10 @@
+"use client";
+
+import { useRef } from "react";
 import { FadeUp } from "@/components/motion/FadeUp";
+import { useGSAP } from "@/components/motion/useGSAP";
 import { PremiumCard } from "@/components/surface/PremiumCard";
+import { motionTokens } from "@/lib/motion/tokens";
 
 type StoryContent = {
   eyebrow: string;
@@ -9,8 +14,54 @@ type StoryContent = {
 };
 
 export function Story({ content }: { content: StoryContent }) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(sectionRef, ({ element, gsap }) => {
+    const chapters = gsap.utils.toArray<HTMLElement>(element.querySelectorAll(".story-chapter"));
+    const stripes = element.querySelector(".media-stripes");
+
+    chapters.forEach((chapter) => {
+      const parts = gsap.utils.toArray<HTMLElement>(chapter.querySelectorAll(".eyebrow, h3, p"));
+      gsap.set(parts, { autoAlpha: 0, y: 22, filter: "blur(7px)" });
+
+      gsap.to(parts, {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: motionTokens.gsapDuration.default,
+        ease: motionTokens.gsapEase.stagger,
+        stagger: motionTokens.staggerInterval,
+        scrollTrigger: {
+          trigger: chapter,
+          start: "top 84%",
+          once: true,
+        },
+      });
+    });
+
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      if (!stripes) return;
+
+      const scrub = gsap.fromTo(stripes, { autoAlpha: 0.18 }, {
+        autoAlpha: 0.56,
+        ease: motionTokens.gsapEase.scroll,
+        scrollTrigger: {
+          trigger: element,
+          start: "top 70%",
+          end: "bottom 35%",
+          scrub: motionTokens.scrubStrength,
+        },
+      });
+
+      return () => scrub.scrollTrigger?.kill();
+    });
+
+    return () => mm.revert();
+  }, []);
+
   return (
-    <section id="story" className="section story-section">
+    <section id="story" className="section story-section" ref={sectionRef}>
       <div className="container story-grid">
         <div className="section-intro sticky-intro">
           <FadeUp>
@@ -22,12 +73,12 @@ export function Story({ content }: { content: StoryContent }) {
         <PremiumCard className="story-panel">
           <div className="media-stripes" aria-hidden="true" />
           <div className="chapter-list">
-            {content.chapters.map((chapter, index) => (
-              <FadeUp as="article" delay={index * 90} className="chapter" key={chapter.kicker}>
+            {content.chapters.map((chapter) => (
+              <article className="chapter story-chapter" key={chapter.kicker}>
                 <div className="eyebrow">{chapter.kicker}</div>
                 <h3>{chapter.title}</h3>
                 <p className="muted">{chapter.text}</p>
-              </FadeUp>
+              </article>
             ))}
           </div>
         </PremiumCard>

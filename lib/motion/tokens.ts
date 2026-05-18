@@ -22,13 +22,18 @@ export const motionTokens = {
   scroll: {
     scrub: 1.1,
   },
+  gsapEase: {
+    hero: "power3.out",
+    scroll: "none",
+    stagger: "power2.out",
+  },
+  gsapDuration: {
+    fast: 0.4,
+    default: 0.8,
+    slow: 1.4,
+  },
+  scrubStrength: 1,
+  staggerInterval: 0.12,
 } as const;
-
-// Ready to use when gsap is installed.
-// const gsapEasingTokens = {
-//   gsapPrimary: "power3.out",
-//   gsapEmphasis: "power4.out",
-//   gsapCinematic: "expo.out",
-// } as const;
 
 export type MotionTokens = typeof motionTokens;
