@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.0 — 2026-05-18
+
+### Added
+- Added deployment automation via `scripts/pre-deploy.sh` and `npm run predeploy`.
+- Added Vercel production configuration with build settings, Frankfurt region, and baseline security headers.
+- Added Netlify production configuration with `@netlify/plugin-nextjs`, Node 20, security headers, and 404 fallback.
+- Added `.env.example` as a safe environment variable template for future integrations.
+- Added `DEPLOYMENT.md` with Vercel, Netlify, environment, custom domain, security header, and troubleshooting guidance.
+
+### Changed
+- Added `deploy:vercel` and `deploy:netlify` npm scripts.
+- Updated `.gitignore` for local env files and platform build folders while allowing `.env.example`.
+- Extended README and QA checklist with deployment handoff steps.
+
+### Verification
+- `bash scripts/pre-deploy.sh` passed.
+- `npm run build` passed.
+- `npm run lint` passed.
+
 ## 1.3.0 — 2026-05-18
 
 ### Added

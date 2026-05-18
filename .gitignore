@@ -25,9 +25,14 @@ pnpm-debug.log*
 
 # env files
 .env*
+!.env.example
+.env.local
+.env.*.local
 
-# vercel
+# deployment platforms
 .vercel
+.netlify
+out/
 
 # typescript
 *.tsbuildinfo

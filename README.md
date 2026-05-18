@@ -49,8 +49,20 @@ QA_CHECKLIST.md
 npm install
 npm run build
 npm run lint
+npm run predeploy
 npm run dev
 ```
+
+## Deployment
+
+Deployment automation is included for production handoff:
+
+- `npm run predeploy` runs lint, build, and delivery-file checks.
+- `vercel.json` configures Vercel builds, the Frankfurt region, and baseline security headers.
+- `netlify.toml` configures Netlify builds with `@netlify/plugin-nextjs` and matching security headers.
+- `.env.example` documents future environment variables without committing secrets.
+
+Read the full deployment guide in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
 ## Design principles
 

@@ -30,6 +30,14 @@ Use this before delivery. A page is not done because it builds; it is done when 
 - [ ] 1024px checked.
 - [ ] 1440px+ checked.
 
+## Pre-Deployment QA
+- [ ] `npm run predeploy` erfolgreich.
+- [ ] Alle Environment Variables auf der Deployment-Plattform gesetzt.
+- [ ] Custom Domain konfiguriert und SSL aktiv.
+- [ ] Security Headers aktiv, z. B. via `https://securityheaders.com` geprüft.
+- [ ] Lighthouse Score ≥ 90 für Performance und Accessibility.
+- [ ] `CHANGELOG.md` aktuell.
+
 ## Technical
 - [ ] `npm run build` passes.
 - [ ] `npm run lint` passes.
