@@ -8,7 +8,7 @@ import { site } from "@/lib/content/site";
 
 export default function Page() {
   return (
-    <main>
+    <main id="top">
       <ProgressiveBlur position="top" />
       <Hero content={site.hero} proof={site.proof} />
       <Story content={site.story} />

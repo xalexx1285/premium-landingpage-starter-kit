@@ -1,4 +1,14 @@
 export const site = {
+  meta: {
+    title: "Premium Landing Page Starter Kit",
+    description:
+      "A reusable premium Next.js landing page template with motion tokens, surface system, QA checklist, and conversion-ready sections.",
+    ogImage: "https://premium-landingpage-starter-kit.vercel.app/og-image.jpg",
+  },
+  navbar: {
+    logo: "Premium Kit",
+    cta: { label: "Template starten", href: "#pricing" },
+  },
   hero: {
     eyebrow: "Premium Next.js Starter Kit · v1.0",
     headline: "Build landing pages that feel intentional.",
