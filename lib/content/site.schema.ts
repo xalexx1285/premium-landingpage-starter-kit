@@ -28,6 +28,26 @@ export interface NavbarConfig {
   cta: CtaConfig;
 }
 
+/** Footer navigation link. */
+export interface FooterLinkConfig {
+  /** Visible footer link label. */
+  label: string;
+  /** Anchor, relative URL, or absolute URL destination. */
+  href: string;
+}
+
+/** Footer content rendered below all pages. */
+export interface FooterConfig {
+  /** Footer brand label. */
+  brand: string;
+  /** Optional short positioning line. */
+  tagline?: string;
+  /** Legal and utility links. */
+  links: readonly FooterLinkConfig[];
+  /** Copyright or legal line. */
+  legal: string;
+}
+
 /** Hero section content and primary conversion copy. */
 export interface HeroConfig {
   /** Small label above the main headline. */
@@ -142,6 +162,8 @@ export interface SiteConfig {
   meta: SiteMetaConfig;
   /** Navigation content. */
   navbar: NavbarConfig;
+  /** Footer content. */
+  footer: FooterConfig;
   /** Hero section content. */
   hero: HeroConfig;
   /** Short proof/section chips shown in the hero visual. */
@@ -161,7 +183,7 @@ export interface SiteConfig {
 export const SITE_CONFIG_JSON_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["theme", "meta", "navbar", "hero", "proof", "story", "pricing", "faq", "finalCta", "qaChecklist"],
+  required: ["theme", "meta", "navbar", "footer", "hero", "proof", "story", "pricing", "faq", "finalCta", "qaChecklist"],
   properties: {
     theme: { type: "string", enum: ["industrial-ai", "minimal-luxury", "cyber-saas", "clean-startup"] },
     meta: {
@@ -182,6 +204,17 @@ export const SITE_CONFIG_JSON_SCHEMA = {
       properties: {
         logo: { type: "string" },
         cta: { $ref: "#/definitions/cta" },
+      },
+    },
+    footer: {
+      type: "object",
+      additionalProperties: false,
+      required: ["brand", "links", "legal"],
+      properties: {
+        brand: { type: "string" },
+        tagline: { type: "string" },
+        links: { type: "array", minItems: 3, maxItems: 4, items: { $ref: "#/definitions/footerLink" } },
+        legal: { type: "string" },
       },
     },
     hero: {
@@ -245,6 +278,12 @@ export const SITE_CONFIG_JSON_SCHEMA = {
   },
   definitions: {
     cta: {
+      type: "object",
+      additionalProperties: false,
+      required: ["label", "href"],
+      properties: { label: { type: "string" }, href: { type: "string" } },
+    },
+    footerLink: {
       type: "object",
       additionalProperties: false,
       required: ["label", "href"],

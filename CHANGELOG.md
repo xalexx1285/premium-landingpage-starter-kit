@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.9.0 — 2026-05-19
+
+### Added
+- Added required `footer` field to `SiteConfig` with `FooterConfig` and footer link typing.
+- Added `components/layout/Footer.tsx` and responsive `.footer-section` styles.
+- Added footer content to the default site config and mock provider output.
+- Added Lenis smooth scrolling via `components/motion/SmoothScroll.tsx` with reduced-motion gating.
+- Added `lenis` as a runtime dependency.
+
+### Changed
+- Integrated `<Footer content={site.footer} />` into `app/layout.tsx` inside `ThemeProvider`.
+- Mounted `<SmoothScroll />` before the navbar and synchronized Lenis RAF with GSAP ScrollTrigger.
+- Extended the AI generation prompt, schema, and validation to require footer content.
+
+### Verification
+- npm run lint passed.
+- npm run build passed.
+
 ## 1.8.0 — 2026-05-19
 
 ### Added

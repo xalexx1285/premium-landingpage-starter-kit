@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import type { CSSProperties } from "react";
+import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { site } from "@/lib/content/site";
 import { getThemeById, themeToCssProperties } from "@/lib/themes";
 import { ThemeProvider } from "@/lib/themes/ThemeProvider";
@@ -36,8 +38,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body className={`${bodyFont.variable} ${displayFont.variable}`}>
         <ThemeProvider initialThemeId={activeTheme.id}>
+          <SmoothScroll />
           <Navbar content={site.navbar} />
           {children}
+          <Footer content={site.footer} />
         </ThemeProvider>
       </body>
     </html>

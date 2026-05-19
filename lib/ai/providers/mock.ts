@@ -100,6 +100,16 @@ async function mockGenerateSiteConfig(businessIdea: string): Promise<SiteConfig>
       logo: brandName,
       cta: { label: "Get Started", href: "#pricing" },
     },
+    footer: {
+      brand: brandName,
+      tagline: `${brandName} helps teams move faster with less friction.`,
+      links: [
+        { label: "Pricing", href: "#pricing" },
+        { label: "FAQ", href: "#faq" },
+        { label: "Contact", href: "#top" },
+      ],
+      legal: `© 2026 ${brandName}. All rights reserved.`,
+    },
     hero: {
       eyebrow: "⚠ Mock Content · Not for production",
       headline: `${brandName} — Built for results.`,

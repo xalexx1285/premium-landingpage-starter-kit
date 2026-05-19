@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type NavLink = {
+  label: string;
+  href: string;
+};
 
 type NavbarContent = {
   logo: string;
@@ -9,10 +14,14 @@ type NavbarContent = {
 
 type NavbarProps = {
   content: NavbarContent;
+  navLinks?: readonly NavLink[];
 };
 
-export function Navbar({ content }: NavbarProps) {
+export function Navbar({ content, navLinks }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const mobileLinks = navLinks?.length ? navLinks : [content.cta];
 
   useEffect(() => {
     const updateScrolledState = () => setIsScrolled(window.scrollY > 12);
@@ -23,8 +32,28 @@ export function Navbar({ content }: NavbarProps) {
     return () => window.removeEventListener("scroll", updateScrolledState);
   }, []);
 
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("mousedown", closeOnOutsideClick);
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+    };
+  }, []);
+
   return (
-    <header className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}>
+    <header ref={headerRef} className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}>
       <div className="container navbar-inner">
         <a className="navbar-logo" href="#top" aria-label={`${content.logo} home`}>
           <span className="navbar-logo-mark" aria-hidden="true" />
@@ -32,7 +61,13 @@ export function Navbar({ content }: NavbarProps) {
         </a>
 
         <div className="navbar-actions">
-          <button className="navbar-menu" type="button" aria-label="Open navigation menu" aria-expanded="false">
+          <button
+            className="navbar-menu"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((current) => !current)}
+          >
             <span aria-hidden="true" />
             <span aria-hidden="true" />
           </button>
@@ -41,6 +76,16 @@ export function Navbar({ content }: NavbarProps) {
           </a>
         </div>
       </div>
+
+      {isMenuOpen && (
+        <nav className="mobile-menu" aria-label="Mobile navigation">
+          {mobileLinks.map((link) => (
+            <a key={`${link.label}-${link.href}`} href={link.href} onClick={() => setIsMenuOpen(false)}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

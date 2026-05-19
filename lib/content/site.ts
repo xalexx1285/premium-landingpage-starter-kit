@@ -14,6 +14,16 @@ export const site: SiteConfig = {
     logo: "Premium Kit",
     cta: { label: "Template starten", href: "#pricing" },
   },
+  footer: {
+    brand: "Premium Kit",
+    tagline: "Premium landing-page systems for reusable high-polish launches.",
+    links: [
+      { label: "Impressum", href: "#" },
+      { label: "Datenschutz", href: "#" },
+      { label: "Kontakt", href: "#" },
+    ],
+    legal: "© 2026 Premium Kit. All rights reserved.",
+  },
   hero: {
     eyebrow: "Premium Next.js Starter Kit · v1.0",
     headline: "Build landing pages that feel intentional.",

@@ -36,6 +36,23 @@ function assertCta(value: unknown, path: string): void {
   assertString(value, "href", path);
 }
 
+function assertFooter(value: unknown, path: string): void {
+  if (!isRecord(value)) throw new Error(`Invalid SiteConfig: ${path} must be an object.`);
+  assertString(value, "brand", path);
+  if (value.tagline !== undefined && (typeof value.tagline !== "string" || value.tagline.trim().length === 0)) {
+    throw new Error(`Invalid SiteConfig: ${path}.tagline must be a non-empty string when provided.`);
+  }
+  if (!Array.isArray(value.links) || value.links.length < 3 || value.links.length > 4) {
+    throw new Error(`Invalid SiteConfig: ${path}.links must contain 3 to 4 links.`);
+  }
+  value.links.forEach((link, index) => {
+    if (!isRecord(link)) throw new Error(`Invalid SiteConfig: ${path}.links[${index}] must be an object.`);
+    assertString(link, "label", `${path}.links[${index}]`);
+    assertString(link, "href", `${path}.links[${index}]`);
+  });
+  assertString(value, "legal", path);
+}
+
 function assertHeader(value: unknown, path: string): void {
   if (!isRecord(value)) throw new Error(`Invalid SiteConfig: ${path} must be an object.`);
   assertString(value, "eyebrow", path);
@@ -59,6 +76,8 @@ function assertSiteConfig(value: unknown): asserts value is SiteConfig {
   if (!isRecord(value.navbar)) throw new Error("Invalid SiteConfig: navbar must be an object.");
   assertString(value.navbar, "logo", "navbar");
   assertCta(value.navbar.cta, "navbar.cta");
+
+  assertFooter(value.footer, "footer");
 
   if (!isRecord(value.hero)) throw new Error("Invalid SiteConfig: hero must be an object.");
   assertString(value.hero, "eyebrow", "hero");
@@ -169,6 +188,7 @@ Content requirements:
 - Story: four chapters named around Problem, Mechanism, Proof, Offer.
 - Pricing: exactly three plans with features and prices.
 - FAQ: at least six questions with practical answers.
+- Footer: brand should be a short form of the meta title, include 3–4 links, and legal must include the current year 2026.
 - Final CTA: headline, body, and CTA pair.
 - SEO metadata: title, description, ogImage, ogImageAlt.
 - Use concise, specific, high-conversion language.
