@@ -62,6 +62,14 @@ export interface HeroConfig {
   secondaryCta: CtaConfig;
   /** Short proof/feature chips rendered inside the hero. */
   meta: string[];
+  /** Optional visual media replacing the default CSS orb. */
+  media?: {
+    type: "image" | "video";
+    src: string;
+    alt?: string;
+    /** Poster image used for video media. */
+    poster?: string;
+  };
 }
 
 /** One chapter in the scroll-story section. */
@@ -228,6 +236,7 @@ export const SITE_CONFIG_JSON_SCHEMA = {
         primaryCta: { $ref: "#/definitions/cta" },
         secondaryCta: { $ref: "#/definitions/cta" },
         meta: { type: "array", minItems: 4, items: { type: "string" } },
+        media: { $ref: "#/definitions/heroMedia" },
       },
     },
     proof: { type: "array", minItems: 5, items: { type: "string" } },
@@ -288,6 +297,17 @@ export const SITE_CONFIG_JSON_SCHEMA = {
       additionalProperties: false,
       required: ["label", "href"],
       properties: { label: { type: "string" }, href: { type: "string" } },
+    },
+    heroMedia: {
+      type: "object",
+      additionalProperties: false,
+      required: ["type", "src"],
+      properties: {
+        type: { type: "string", enum: ["image", "video"] },
+        src: { type: "string" },
+        alt: { type: "string" },
+        poster: { type: "string" },
+      },
     },
     header: {
       type: "object",

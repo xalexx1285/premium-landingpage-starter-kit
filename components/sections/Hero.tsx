@@ -3,17 +3,11 @@
 import { useRef } from "react";
 import { MaskedReveal } from "@/components/motion/MaskedReveal";
 import { useGSAP } from "@/components/motion/useGSAP";
+import type { HeroConfig } from "@/lib/content/site.schema";
 import { motionTokens } from "@/lib/motion/tokens";
 import { useTheme } from "@/lib/themes/ThemeProvider";
 
-type HeroContent = {
-  eyebrow: string;
-  headline: string;
-  subheadline: string;
-  primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
-  meta: readonly string[];
-};
+type HeroContent = HeroConfig;
 
 export function Hero({ content, proof }: { content: HeroContent; proof: readonly string[] }) {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -92,7 +86,17 @@ export function Hero({ content, proof }: { content: HeroContent; proof: readonly
         </div>
         <aside className="premium-card hero-visual" ref={visualRef}>
           <div className="card-meta"><span>Motion token</span><span>GSAP / ScrollTrigger</span></div>
-          <div className="orb" aria-hidden="true" />
+          {content.media ? (
+            <figure className="hero-media">
+              {content.media.type === "image" ? (
+                <img src={content.media.src} alt={content.media.alt ?? ""} />
+              ) : (
+                <video src={content.media.src} poster={content.media.poster} autoPlay muted loop playsInline />
+              )}
+            </figure>
+          ) : (
+            <div className="orb" aria-hidden="true" />
+          )}
           <div className="hero-visual-footer">
             {content.meta.map((item) => <span key={item}>{item}</span>)}
           </div>
