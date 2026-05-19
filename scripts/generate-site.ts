@@ -2,7 +2,7 @@ import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateSiteConfig } from "../lib/ai/generate-site-config";
+import { getProvider } from "../lib/ai/providers";
 
 function loadEnvFile(path: string) {
   if (!existsSync(path)) return;
@@ -35,8 +35,12 @@ async function getBusinessIdea(): Promise<string> {
   }
 }
 
-function toTypeScript(siteConfig: unknown): string {
-  return `// Automatisch generiert via npm run generate\n// Nicht manuell bearbeiten\n\nimport type { SiteConfig } from "./site.schema";\n\nexport const generatedSite: SiteConfig = ${JSON.stringify(siteConfig, null, 2)};\n`;
+function toTypeScript(siteConfig: unknown, isMock = false): string {
+  const header = isMock
+    ? "// ⚠️  MOCK-GENERATED — Kein echter AI-Output\n// Automatisch generiert via npm run generate:mock\n// Nicht für Production-Copy verwenden"
+    : "// Automatisch generiert via npm run generate\n// Nicht manuell bearbeiten";
+
+  return `${header}\n\nimport type { SiteConfig } from "./site.schema";\n\nexport const generatedSite: SiteConfig = ${JSON.stringify(siteConfig, null, 2)};\n`;
 }
 
 async function main() {
@@ -47,10 +51,12 @@ async function main() {
     throw new Error("Bitte eine Business-Idee als Argument oder interaktiv eingeben.");
   }
 
-  console.log("Generating landing page configuration...");
-  const siteConfig = await generateSiteConfig(businessIdea);
+  const isMock = process.env.AI_PROVIDER === "mock";
+  console.log(isMock ? "⚠ Generating mock landing page configuration (no API call)..." : "Generating landing page configuration...");
+  const provider = getProvider();
+  const siteConfig = await provider.generateSiteConfig(businessIdea);
   const outputPath = resolve(process.cwd(), "lib/content/site.generated.ts");
-  writeFileSync(outputPath, toTypeScript(siteConfig));
+  writeFileSync(outputPath, toTypeScript(siteConfig, isMock));
 
   console.log(`✅ Generated site config written to ${outputPath}`);
   console.log(`Theme: ${siteConfig.theme}`);

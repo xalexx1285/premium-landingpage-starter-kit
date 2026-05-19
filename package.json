@@ -10,6 +10,7 @@
     "deploy:vercel": "vercel --prod",
     "deploy:netlify": "netlify deploy --prod --dir=.next",
     "generate": "tsx scripts/generate-site.ts",
+    "generate:mock": "AI_PROVIDER=mock tsx scripts/generate-site.ts",
     "create": "npx tsx packages/create-premium-site/bin/create-premium-site.ts"
   },
   "dependencies": {

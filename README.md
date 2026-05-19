@@ -98,6 +98,28 @@ The same generator is available server-side through `POST /api/generate` with JS
 The API route reads `ANTHROPIC_API_KEY` only on the server and never exposes it to client code.
 
 
+## Mock Mode
+
+Generate a complete `SiteConfig` without an Anthropic API key or credits:
+
+```bash
+# Direct shortcut:
+npm run generate:mock -- "My business idea"
+
+# Or set AI_PROVIDER in .env.local for all generate calls and the API route:
+echo "AI_PROVIDER=mock" >> .env.local
+npm run generate -- "My business idea"
+```
+
+The mock provider derives a brand name and theme from your input and returns
+a structurally complete `SiteConfig` immediately — no network call, no cost.
+
+**Use mock mode for:** UI development, flow testing, CI without secrets.
+
+**Do not use mock mode for:** production content — copy is placeholder only.
+
+Generated files include a `⚠ MOCK-GENERATED` header comment as a reminder.
+
 ## Generator UI
 
 A browser-based generator is available at `/generator`.

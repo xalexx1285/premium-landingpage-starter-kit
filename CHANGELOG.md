@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.8.0 — 2026-05-19
+
+### Added
+- Added Provider Architecture: lib/ai/providers/types.ts, anthropic.ts, mock.ts, index.ts.
+- Added mock provider that derives brand name via stop-word filter and theme via
+  keyword matching, returns a full valid SiteConfig with no API call.
+- Added AI_PROVIDER environment variable for provider selection (anthropic | mock).
+- Added npm run generate:mock shortcut script.
+- Mock-generated files include ⚠ MOCK-GENERATED header comment.
+
+### Changed
+- app/api/generate/route.ts: uses getProvider() instead of direct generateSiteConfig import.
+  API key check is skipped when AI_PROVIDER=mock.
+- scripts/generate-site.ts: uses getProvider(), toTypeScript() accepts isMock flag.
+- Updated .env.example with AI_PROVIDER documentation.
+- Updated README.md with Mock Mode section.
+
+### Unchanged
+- lib/ai/generate-site-config.ts — not modified.
+- packages/create-premium-site — not modified (migration planned for 1.9.0).
+
+### Verification
+- npm run lint passed.
+- npm run build passed.
+- Mock CLI tested with 3 different business ideas.
+- API mock-mode tested without ANTHROPIC_API_KEY.
+- Anthropic provider path confirmed unbroken.
+
 ## 1.7.0 — 2026-05-19
 
 ### Added

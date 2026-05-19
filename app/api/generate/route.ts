@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { generateSiteConfig } from "@/lib/ai/generate-site-config";
+import { getProvider } from "@/lib/ai/providers";
 
 export async function POST(request: Request) {
-  if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY.trim() === "sk-ant-...") {
+  if (process.env.AI_PROVIDER !== "mock" && (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY.trim() === "sk-ant-...")) {
     return NextResponse.json(
       { error: "ANTHROPIC_API_KEY is not configured on the server." },
       { status: 503 },
@@ -20,7 +20,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "businessIdea is required." }, { status: 400 });
     }
 
-    const siteConfig = await generateSiteConfig(businessIdea);
+    const provider = getProvider();
+    const siteConfig = await provider.generateSiteConfig(businessIdea);
     return NextResponse.json({ siteConfig });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown generation error";
