@@ -97,6 +97,27 @@ The same generator is available server-side through `POST /api/generate` with JS
 
 The API route reads `ANTHROPIC_API_KEY` only on the server and never exposes it to client code.
 
+
+## Generator UI
+
+A browser-based generator is available at `/generator`.
+
+1. Start the dev server: `npm run dev`
+2. Open `http://localhost:3000/generator`
+3. Enter a business idea (minimum 20 characters)
+4. Click **Generate →**
+
+Claude returns a complete `SiteConfig` in 8–15 seconds. The result is shown as a
+structured preview with all sections. Use the "Show raw JSON" toggle to copy the
+raw config.
+
+Requirements:
+- `ANTHROPIC_API_KEY` must be set in `.env.local`
+- Sufficient Anthropic API credits (top up at console.anthropic.com)
+
+The API key is **never** exposed to the browser. All generation happens server-side
+via `POST /api/generate`. See [`docs/GENERATOR_UI.md`](./docs/GENERATOR_UI.md).
+
 ## CLI Generator
 
 Der Starter enthält ein lokales CLI-Paket `create-premium-site`, das aus dem Starter Kit ein neues, vorkonfiguriertes Landingpage-Projekt erzeugt.

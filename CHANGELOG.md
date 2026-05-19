@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.7.0 — 2026-05-19
+
+### Added
+- Added `/generator` Web-UI for browser-based landing page generation via POST /api/generate.
+- Added components: GeneratorForm, GeneratorResult, GeneratorJsonPreview,
+  GeneratorError, GeneratorLoading, ExampleIdeaButton under components/generator/.
+- Added types/generator.ts with GeneratorStatus, GeneratorErrorType, GeneratorError,
+  GenerateApiResponse TypeScript types.
+- Added generator CSS classes in app/styles/components.css.
+- Added docs/GENERATOR_UI.md with usage and architecture documentation.
+
+### Changed
+- Updated README.md with Generator UI section.
+
+### Verification
+- npm run lint passed.
+- npm run build passed.
+- /generator browser smoke-tested for validation, missing key, insufficient credits, network error, and success UI with a mocked valid API response.
+
 ## 1.6.0 — 2026-05-18
 
 ### Added
